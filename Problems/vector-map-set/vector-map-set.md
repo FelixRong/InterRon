@@ -1,0 +1,2 @@
+vector封装数组，list封装链表，map和set封装了二叉树
+vector-map-set的动态输入和输出
