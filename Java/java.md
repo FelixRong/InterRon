@@ -271,3 +271,28 @@ package com.hello;
 
 javac -d . demo.java
 java com.zhang.demo
+
+
+
+内部类
+内部类可以直接访问外部类的成员，包括私有
+外部类要访问内部类成员，必须创建对象
+```bash
+public class demo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Outer.Inner i=new Outer().new Inner();// 创建对象方法
+		i.print();
+	}
+
+}
+class Outer{
+	private int num=10;
+	class Inner{
+		public void print() {
+			System.out.println(num);
+		}
+	}
+}
+```
