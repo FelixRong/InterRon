@@ -121,7 +121,7 @@ class T extends M{
 }
 ```
 
-面向对象（多态）
+面向对象（多态）---------------
 事物存在的多种形态
 多态前提:
 1、要有继承关系
@@ -143,8 +143,8 @@ class Animal{
 		System.out.println("动物吃");
 	}
 }
-class Cat extends Animal{ //1、继承关系
-	public void eat() { //2、方法重写
+class Cat extends Animal{ 			//1、继承关系
+	public void eat() { 			//2、方法重写
 		System.out.println("猫吃");
 	}
 }
@@ -164,3 +164,110 @@ Father f=new Son();
 多态好处和弊端
 好处：提高了代码的维护性（继承保证）和扩展性(多态保证)
 弊端：不能使用子类的特有属性和行为
+
+
+面向对象（抽象类）------------------
+特点：
+1、抽象类和抽象方法必须用abstract关键字修饰
+abstract class 类名{}
+public abstract void print();
+2、抽象类不一定有抽象方法，有抽象方法的类一定是抽象类或者是接口
+3、抽象类不能实例化，所以抽象类必须被继承，才能被使用
+ 按照多态的方式，由具体的子类实例化，这也是多态的一种，抽象类多态
+4、抽象类的子类 要么是抽象类 要么重写抽象类中的所有抽象方法
+5、抽修方法的具体实现由它的子类确定。如果一个类包含抽象方法，那么该类必须是抽象类。
+6、任何子类必须重写父类的抽象方法，或者声明自身为抽象类。
+7、abstract不能和final与static、private共存  final修饰的方法不能重写
+```bash
+B b=new B();
+
+abstract class AAS{
+	public abstract void eat();
+}
+
+class B extends AAS{
+	public void eat() {
+		System.out.println("eat");
+	}
+}
+```
+
+面向对象（接口）------------------
+interface
+从广义上讲对外提供规则的都是接口
+1、interfa 接口名{}
+2、类实现接口用implements表示
+	class 类名 implements 接口名{}
+3、接口不能实例化，按照多态的方式实例化
+4、接口中所有的方法必须是抽象方法。（默认会加上abstract）,在实现接口的类中重写
+5、接口没有构造方法。
+6、接口不能包含成员变量，除了 static 和 final 变量。
+```bash 
+public class interface_class {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Inter i=new Demo1();// 父类引用指向子类对象
+		i.print();
+		System.out.println(Inter.num);
+		System.out.println(i.num);
+	}
+
+}
+interface Inter{
+	public abstract void print();//接口中必须是抽象方法
+	final int num=10;
+}
+class Demo1 implements Inter{
+	public void print() { // 必须重写
+		System.out.println("Inter");
+	}
+}
+```
+
+类与类
+	继承关系，只能单继承或多重继承
+类与接口
+	实现关系，单实现、多实现
+	继承一个类的同时实现多个接口
+接口与接口
+	继承关系，单继承、多继承
+```bash
+public class interface_class {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		InterA i=new Demo1();
+		i.printA();
+
+		Demo1 d=new Demo1();
+		d.printB();
+	}
+
+}
+interface InterA{
+	public abstract void printA();//接口中必须是抽象方法
+}
+interface InterB{
+	public abstract void printB();//接口中必须是抽象方法
+}
+interface InterC extends InterA,InterB{
+	public abstract void printC();//接口中必须是抽象方法
+}
+class Demo1 implements InterA,InterB{
+ 	public void printA() {
+		System.out.println("InterA");
+	}
+	public void printB() {
+		System.out.println("InterB");
+	}
+}
+``` 
+
+package----------------
+package com.hello;
+1、必须是程序的第一条可执行代码
+2、一个java文件中只能有一个
+
+javac -d . demo.java
+java com.zhang.demo
