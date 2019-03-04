@@ -6,7 +6,7 @@ JDK是提供给java开发人员使用的，其中包含了java的开发工具，
 单引号‘’ ：中放单个数字，单个字母，单个符号。
 
 //----------------------------------------------
-char 可以存储单个中文 java采用的是Unicode编码
+## char 可以存储单个中文 java采用的是Unicode编码
 
 ++ 、 --
 int a=3;
@@ -16,7 +16,7 @@ b=a++;
 
 return 返回，作用：不是结束循环的，而是结束方法的。
 
-数组：存储同一数据类型多个元素的集合。
+## 数组：存储同一数据类型多个元素的集合。
 int[] arr=new int[5];
 System.out.println(arr.length);
 System.out.println(arr);//[I@15db9742
@@ -32,7 +32,7 @@ float、double 默认为0.0
 Boolean 默认为false
 char 默认为\u0000
 
-static 静态方法中没有this关键字（静态随着类的加载而加载，this随着对象的创建而存在），静态方法只能访问静态的成员变量和静态的成员方法
+## static 静态方法中没有this关键字（静态随着类的加载而加载，this随着对象的创建而存在），静态方法只能访问静态的成员变量和静态的成员方法
 非静态的都可以
 
 静态变量和成员变量
@@ -41,7 +41,7 @@ static 静态方法中没有this关键字（静态随着类的加载而加载，
 3、内存出现时间不同，静态变量随着类的加载而加载，随着类的消失而消失；成员变量随着对象的创建而存在，随着对象的消失而消失。
 4、调用不同，静态变量可以通过类名调用，也可以通过对象调用。成员变量只能通过对象名调用
 
-继承的好处：
+## 继承的好处：
 1、提高了代码的复用性和可维护性
 2、让类与类之间产生了关系，是多态的前提
 弊端：
@@ -50,7 +50,7 @@ static 静态方法中没有this关键字（静态随着类的加载而加载，
 构造代码块 每创建一次对象就会执行一次，优先于构造函数执行
 静态代码块：随着类的加载而加载，且只执行一次，作用给类进行初始化，一般用来加载驱动。优先于主方法执行，也优先于构造代码块
 
-继承的特点“
+## 继承的特点“
 java中只支持单继承，不支持多继承。支持多重继承 extends
 继承注意：
 1、子类只能继承父类所有非私有成员
@@ -58,7 +58,7 @@ java中只支持单继承，不支持多继承。支持多重继承 extends
 
 子类中所有的构造方法默认都会访问父类中空参数的构造方法。系统会在子类所有的构造函数（无参或有参）中默认添加super()，用来访问父类中的空参构造函数。因为子类继承父类的数据，在子类初始化之前，一定要先完成父类数据的初始化
 
-this/super
+## this/super
 this 既可以调用本类也可以调用父类（本类没有的情况）
 super 调用父类的成员。可以添加参数调用父类的有参构造
 this("zzz",20);// 本类的有参构造
@@ -92,12 +92,12 @@ class Z extends F{
 Override 重写 子类中出现了和父类中方法声明一模一样的方法。与返回值类型无关，返回值一致
 Overload 重载 本类中出现的方法名一样，参数列表不同的方法，与返回值类型无关
 
-final：
+## final：
 1、修饰变量，变量就变成了常量，只能赋值一次 public static final double PI=3.14
 2、修饰方法，方法不能被重写
 3、修饰类，类不能被继承
 ```bash 
-final class M{//修饰类，类不能被继承
+final class M{// 错误，修饰类，类不能被继承
 	public void print() {
 		System.out.println("M");
 	}
@@ -121,7 +121,7 @@ class T extends M{
 }
 ```
 
-面向对象（多态）---------------
+## 面向对象（多态）---------------
 事物存在的多种形态
 多态前提:
 1、要有继承关系
@@ -166,7 +166,7 @@ Father f=new Son();
 弊端：不能使用子类的特有属性和行为
 
 
-面向对象（抽象类）------------------
+## 面向对象（抽象类）------------------
 特点：
 1、抽象类和抽象方法必须用abstract关键字修饰
 abstract class 类名{}
@@ -192,7 +192,7 @@ class B extends AAS{
 }
 ```
 
-面向对象（接口）------------------
+## 面向对象（接口）------------------
 interface
 从广义上讲对外提供规则的都是接口
 1、interfa 接口名{}
@@ -225,7 +225,7 @@ class Demo1 implements Inter{
 }
 ```
 
-类与类
+## 类与类
 	继承关系，只能单继承或多重继承
 类与接口
 	实现关系，单实现、多实现
@@ -264,7 +264,7 @@ class Demo1 implements InterA,InterB{
 }
 ``` 
 
-package----------------
+## package----------------
 package com.hello;
 1、必须是程序的第一条可执行代码
 2、一个java文件中只能有一个
@@ -274,7 +274,7 @@ java com.zhang.demo
 
 
 
-内部类
+## 内部类
 内部类可以直接访问外部类的成员，包括私有
 外部类要访问内部类成员，必须创建对象
 ```bash
@@ -297,6 +297,91 @@ class Outer{
 }
 ```
 
-封装：
+## 封装：
 指隐藏对象的属性和实现细节，仅对外提供公共访问方式
 private 只能在本类中访问
+
+jar 是多个class文件的压缩包
+可以使用别人写好的东西
+
+API Application Programming Interface
+
+## Object类
+	类层次结构的根类
+	所有类都直接或间接继承自该类
+public String toString(){
+	return getClass().getName()+"@"+Integer.toHexString(hashCode()); // 调用后显示的不是这种，说明被重写了
+}
+
+hashCode()// 返回该对象的哈希码值 结果为int
+```bash
+Object obj=new Object();
+int hashCode=obj.hashCode();
+System.out.println(hashCode);
+或
+Student s=new Student("zzz",19);
+System.out.println(s.hashCode());
+```
+
+getClass()// 返回此Object的运行时类 返回class
+```bash
+Student s=new Student("zzz",19);
+Class cl=s.getClass();   
+System.out.println(cl);  // 获取该对象的字节码文件 class com.zhang.bean.Student
+String str=cl.getName(); 
+System.out.println(str); // 获取对象名字 com.zhang.bean.Student
+```
+
+toString()// 返回该对象的字符串表示
+```bash
+//重写
+public String toString() {
+	return "我的姓名是"+name+",我的年龄是"+age;
+}
+```
+
+equals() //  指示其他某个对象是否与此对象" 相等 "
+public boolean equals(Object obj){
+	return (this==obj);
+}
+Object 中的equals方法是比较对象的地址值的，没有什么意义，需要重写，在开发中通常比较的是对象中的属性值，我们认为相同属性是同一个对象
+
+## == 和equals方法区别
+共同点：都可以做比较，返回值都是boolean
+区别1、==是比较运算符，既可以比较基本数据类型，也可以比较引用数据类型，基本数据类型比较的是值，引用数据类型比较的是地址值。
+2、equals方法只能比较的是引用数据类型。在没重写之前，比较的是地址值，底层依赖的是==号，但是比较地址值是没有意义的，我们需要重写equals方法，比较对象中的属性值。
+```bash
+public boolean equals(Object obj) {
+	Student s=(Student)obj;
+	return this.name.equals(s.name) && this.age==s.age ;
+}
+```
+
+## Scanner
+```bash
+Scanner sc=new Scanner(System.in);
+	if(sc.hasNextInt()) { // 若输入的为int 返回true
+		int i=sc.nextInt();// 键盘录入一个整数
+		System.out.println(i);
+	}else {
+		System.out.println("输入类型错误");
+	}
+```
+
+两个常用的方法
+public int nextInt() // 获取一个int类型的值  键盘录入整数，当我们录完之后会自动加入\r\n。nextInt只获取值后就结束了
+
+public String nextLine() // 获取一个String类型的值。键盘接收字符串，可以接收任何类型。通过\r\n证明一行结束。
+```bash
+Scanner sc_str=new Scanner(System.in);
+String str=sc_str.nextLine();
+System.out.println(str);
+```
+可以使用nextLine() 再把数字字符串转换为数字
+
+
+## String
+```bash
+String str="abc";
+System.out.println(str.toString());//默认调用toString()。且是重写的toString方法，返回该对象本身
+```
