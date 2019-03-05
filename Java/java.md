@@ -650,3 +650,154 @@ finalize
 ### java程序运行原理
 java命令会启动java虚拟机，启动JVM，等于启动了一个应用程序，也就是启动了一个进程，该进程会自动启动一个“主线程”，然后主线程会调用某个类的main方法。
 JVM启动至少启动了垃圾回收线程和主线程，所以是多线程的
+
+```bash
+public class Demo_Thread {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MyThread mt=new MyThread();			//4、创建Thread 的子类
+		//mt.run();
+		mt.start();							//5、创建并启动一个线程///使该线程开始执行；Java 虚拟机调用该线程的 run 方法。
+		
+		for (int i = 0; i < 1000; i++) {
+			System.out.println("bbbbb");
+		}
+	}
+
+}
+class MyThread extends Thread{ 				//1、继承
+	public void run(){						//2、重写run方法
+		for (int i = 0; i < 1000; i++) {	//3、执行代码
+			System.out.println("aaaaa");
+		}
+	}
+}
+```
+多线程(实现Runnable的原理)(了解)
+* 查看源码
+	* 1,看Thread类的构造函数,传递了Runnable接口的引用 
+	* 2,通过init()方法找到传递的target给成员变量的target赋值
+	* 3,查看run方法,发现run方法中有判断,如果target不为null就会调用Runnable接口子类对象的run方法
+
+```bash
+public class Demo_Runnable {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MyRunnable mr=new MyRunnable();			//4、创建Runnable的子类
+		Thread t=new Thread(mr);				//5、将Runnable的引用当作参数传递给Thread的构造函数  target参数
+		t.start();								//6、开启线程
+		for (int i = 0; i < 1000; i++) {
+			System.out.println("bbbbb");
+		}
+	}
+
+}
+class MyRunnable implements Runnable{		//1、定义一个类实现Runnable
+
+	@Override
+	public void run() {						//2、重写run方法
+		// TODO Auto-generated method stub
+		for (int i = 0; i < 1000; i++) {	//3、执行代码
+			System.out.println("aaaaa");
+		}
+	}
+}
+```
+### 匿名类
+```bash
+public class Demo_Thread_neibulei {
+	public static void main(String[] args) {
+		new Thread() {													//new Thread("zzzz") 也可以这样设置名字
+			public void run() {
+				for (int i = 0; i < 1000; i++) {
+					System.out.println(this.getName()+".............aaa");
+				}
+			}
+		}.start();
+	}
+
+	//------------------------------------------
+	Thread t1=new Thread("zzz") {
+		public void run() {
+			for (int i = 0; i < 1000; i++) {
+				System.out.println(this.getName()+".............aaa");
+			}
+		}
+	};
+	t1.setName("zhang");
+	t1.start();
+}
+```
+### 两种多线程的区别
+查看源码的区别:
+	a.继承Thread : 由于子类重写了Thread类的run(), 当调用start()时, 直接找子类的run()方法
+	b.实现Runnable : 构造函数中传入了Runnable的引用, 成员变量记住了它, start()调用run()方法时内部判断成员变量Runnable的引用是否为空, 不为空编译时看的是Runnable的run(),运行时执行的是子类的run()方法
+	
+继承Thread
+	好处是:可以直接使用Thread类中的方法,代码简单
+	弊端是:如果已经有了父类,就不能用这种方法
+实现Runnable接口
+	好处是:即使自己定义的线程类有了父类也没关系,因为有了父类也可以实现接口,而且接口是可以多实现的
+	弊端是:不能直接使用Thread中的方法需要先获取到线程对象后,才能得到Thread的方法,代码复杂
+
+## 休眠线程
+Thread.sleep(毫秒,纳秒), 控制当前线程休眠若干毫秒1秒= 1000毫秒 1秒 = 1000 * 1000 * 1000纳秒 1000000000
+
+## 单例对象
+保证类在内存中只有一个对象
+```bash
+// 饿汉式 
+class Singleton{
+	//1、私有构造函数，其他类不能访问该构造方法
+	private Singleton() {}
+	//2、创建私有本类对象 ,防止外界修改
+	private static Singleton s=new Singleton();
+	//3、对外提高公共的访问方法
+	public static Singleton getInstance() {
+		return s;
+	}
+}
+```
+```bash
+//懒汉式 单例的延迟加载模式  多线程有安全隐患
+class Singleton2 {
+	//1,私有构造函数
+	private Singleton2(){}
+	//2,声明一个本类的引用
+	private static Singleton2 s;
+	//3,对外提供公共的访问方法
+	public static Singleton2 getInstance() {
+		if(s == null)
+			//线程1,线程2
+			s = new Singleton2();
+		return s;
+	}
+	
+	public static void print() {
+		System.out.println("11111111111");
+	}
+}
+```
+饿汉式和懒汉式区别
+1、饿汉式是空间换时间，懒汉式是时间换空间
+2、在多线程访问时，饿汉式不会创建多个对象，而懒汉式有可能创建多个对象
+
+## 网络编程
+用来实现网络互联的不同计算机上运行的程序间可以进行数据交换
+
+UDP：面向无连接，数据不安全，速度快，不区分客户端和服务端
+TCP：面向连接（三次握手），数据安全，速度略低，分为客户端和服务端
+三次握手：客户端先向服务端发起请求，服务端响应请求，传输数据
+
+### Socket
+网络上具有唯一标识的IP地址和端口号组合在一起才能构成唯一能识别的标识符套接字
+通信的两端都有Socket
+网络通信其实就是Socket间的通信
+数据在两个Socket间通过IO流传输
+
+## 反射
+JAVA反射机制是在运行状态中，对于任意一个类，都能知道这个类的所有属性和方法。
+对于任意一个对象，都能够调用它的任意一个方法和属性
+这种动态获取的信息以及动态调用对象的方法的功能成为java语言的反射机制
