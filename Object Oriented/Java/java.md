@@ -1,20 +1,22 @@
-JRE:JVM+类库 Java Runtime Environment Java运行环境
-JDK:JRE+JAVA的开发工具
-JRE：包括java虚拟机（JVM）和java程序所需的核心类库等，如果想运行一个开发好的java程序，计算机中只需要安装JRE即可。
-JDK是提供给java开发人员使用的，其中包含了java的开发工具，也包括JRE。
-编译工具（javac.exe） 打包工具（jar.exe）
-单引号‘’ ：中放单个数字，单个字母，单个符号。
+* JRE:JVM+类库 Java Runtime Environment Java运行环境
+* JDK:JRE+JAVA的开发工具
+* JRE：包括java虚拟机（JVM）和java程序所需的核心类库等，如果想运行一个开发好的java程序，计算机中只需要安装JRE即可。
+* JDK是提供给java开发人员使用的，其中包含了java的开发工具，也包括JRE。
+* 编译工具（javac.exe） 打包工具（jar.exe）
+* 单引号‘’ ：中放单个数字，单个字母，单个符号。
 
 //----------------------------------------------
 ## char 可以存储单个中文 java采用的是Unicode编码
 
-++ 、 --
+* ++ 、 --
+```bash
 int a=3;
 int b;
 b=a++;
+```
 此时，a=4,b=3
 
-return 返回，作用：不是结束循环的，而是结束方法的。
+* return 返回，作用：不是结束循环的，而是结束方法的。
 
 ## 数组：存储同一数据类型多个元素的集合。
 int[] arr=new int[5];
@@ -520,7 +522,7 @@ System.out.println(ss.trim());
 System.out.println(ss.compareTo(str1)); // 按照码表值逐个比较，a和aaa 则比较长度
 ```
 
-##StringBuffer类
+## StringBuffer类
 线程安全（效率低）的可变字符序列，一个类似于String的字符串缓冲区，但不能修改
 每个字符串缓冲区都有一定的容量。只要字符串缓冲区所包含的字符序列的长度没有超出此容量，就无需分配新的内部缓冲区数组。如果内部缓冲区溢出，则此容量自动增大。从 JDK 5 开始，为该类补充了一个单个线程使用的等价类，即 StringBuilder。与该类相比，通常应该优先使用 StringBuilder 类，因为它支持所有相同的操作，但由于它不执行同步，所以速度更快。
 与String的区别
