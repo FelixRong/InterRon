@@ -174,10 +174,6 @@ class Cat extends Animal{ 			//1、继承关系
 ## 面向对象（抽象类）------------------
 * 特点：
 	* 1、抽象类和抽象方法必须用abstract关键字修饰
-```bash
-abstract class 类名{}
-public abstract void print();
-```
 	* 2、抽象类不一定有抽象方法，有抽象方法的类一定是抽象类或者是接口
 	* 3、抽象类不能实例化，所以抽象类必须被继承，才能被使用
  		* 按照多态的方式，由具体的子类实例化，这也是多态的一种，抽象类多态
@@ -185,6 +181,11 @@ public abstract void print();
 	* 5、抽修方法的具体实现由它的子类确定。如果一个类包含抽象方法，那么该类必须是抽象类。
 	* 6、任何子类必须重写父类的抽象方法，或者声明自身为抽象类。
 	* 7、abstract不能和final与static、private共存  final修饰的方法不能重写
+```bash
+abstract class 类名{}
+public abstract void print();
+```
+
 ```bash
 B b=new B();
 
