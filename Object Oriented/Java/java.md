@@ -580,6 +580,32 @@ for (int i = 0; i < Arr.length; i++) {
 	System.out.println(Arr[i]);
 }
 ```
+
+### 为什么会有基本类型包装类
+* 将基本数据类型封装成对象的好处在于可以在对象中定义更多的功能方法操作该数据
+* 常用操作，用于基本数据类型与字符串之间的转换
+* byte 		Byte
+* short 	Short
+* int 	 	Integer
+* long 	 	Long
+* float 	Float
+* double 	Double
+* char 		Character
+* boolean 	Boolean
+
+## Integer
+* Integer 类在对象中包装了一个基本类型 int 的值。
+* 该类提供了多个方法，能在int类型和String类型之间相互转换
+* 还提供了处理int类型时非常有用的其他常量和方法
+
+```bash
+System.out.println(Integer.MAX_VALUE);
+		
+Integer i1=new Integer(100);
+System.out.println(i1);
+Integer i2=new Integer("120"); //为数字字符串
+System.out.println(i2);
+```
 * JDK5新特性
 	* 自动装箱：把基本类型转换为包装类类型
 	* 自动拆箱：把包装类类型转换为基本类型
@@ -639,6 +665,8 @@ System.out.println(dt2);
 ```
 
 ## Collection
+
+### 集合由来
 * 数组长度是固定的，当添加的元素超过了数组的长度时需要对数组重新定义，java内部给我们提供了集合类，能存储任意对象，长度是可以改变的，随着元素的增加减少而增加减少
 
 ### 数组与集合的区别
@@ -651,6 +679,147 @@ System.out.println(dt2);
 	* List（有序(存取顺序一致)，有索引，可以存储重复）：ArrayList(数组实现)、LinkedList(链表实现)、Vector(数组实现)
 	* Set（无序，没索引，不可以存储重复）:HashSet（哈希算法）、TreeSet（二叉树算法）
 
+```bash
+public class Demo_collection {
+
+	// add方法，如果是List集合，一直返回true，因为List集合中是可以存储重复元素的
+	//如果是Set集合，当存储重复元素的时候，会返回false
+	//ArrayList的父类的父类重写了toString方法。
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Collection c=new ArrayList();			//父类引用指向对象
+		boolean b1=c.add("aaa");
+		boolean b2=c.add("bbb");
+		c.add(100);
+		System.out.println(c.toString());
+		System.out.println(b1);
+		c.remove(100); 							//删除
+		System.out.println(c.toString());
+		System.out.println(c.contains("aaa"));	//是否包含aaa
+		System.out.println(c.isEmpty()); 		//判断是否为空
+		System.out.println(c.size());			//返回集合元素个数
+		c.clear();								//清空集合
+		System.out.println(c.toString());
+	}
+}
+```
+### list
+```bash
+public class Demo_List {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		List list=new ArrayList();
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		list.add(1, 3);
+		System.out.println(list);
+		list.remove(1);					//通过索引删除元素
+		System.out.println(list);
+		Object obj=list.get(0);			//通过索引获取元素
+		System.out.println(obj);
+		
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));	//索引遍历
+		}
+		
+		list.set(1, "a");				//修改指定位置元素值
+		 
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));	//索引遍历
+		}
+	}
+}
+```
+
+## 迭代器
+* 集合是用来存储元素，存储的元素需要查看，需要迭代遍历
+```bash
+public class Demo_Iterator {
+	public static void main(String[] args) {
+		Collection c=new ArrayList();
+		c.add(1);
+		c.add(2);
+		c.add(3);
+	
+		Iterator it=c.iterator();			//获取迭代器
+
+		while(it.hasNext()) {				//判断集合中是否含有元素
+			System.out.println(it.next());
+		}
+	}
+}
+```
+
+## LinkedList
+```bash
+public class Demo_LinkedList {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		LinkedList list=new LinkedList(); // 创建集合对象
+		list.addFirst("a");
+		list.addFirst("b");
+		list.addFirst("c");
+		list.addFirst("d");
+		list.addFirst("a");
+		
+		list.addLast("v");
+		System.out.println(list);
+		
+		System.out.println(list.getFirst());
+		System.out.println(list.getLast());
+		
+		list.removeFirst();
+		list.removeLast();
+		System.out.println(list);
+		
+		System.out.println(list.get(1));
+	}
+
+}
+```
+
+## 泛型
+* 泛型：一般类型，也就是说可以为任何类型，泛型的本质是“参数化类型”，也就是说所操作的数据类型被指定为一个参数。泛型是在JDK1.5中引入的特性。
+* 好处：提高安全性，省去强转的麻烦
+* 使用：<>中放的是引用数据类型
+
+* 泛型类   class Person<T>{}
+* 泛型接口	interface inter<T>{}
+* 泛型通配符<?>	
+
+## HashSet
+* 得重写hashCode()和equals()方法才能实现元素唯一
+
+## TreeSet
+* 是用来对元素进行排序的，也保证元素的唯一。底层是二叉树
+* 根据Comparable 接口的compareTo() 方法，升序排列
+
+```bash
+public class Demo_TreeSet {
+	public static void main(String[] args) {
+		TreeSet<Integer> ts=new TreeSet<Integer>();
+		ts.add(10);
+		ts.add(1);
+		ts.add(1);
+		ts.add(3);
+		ts.add(5);
+		ts.add(2);
+		ts.add(7);
+		System.out.println(ts);		//[1, 2, 3, 5, 7, 10]
+	}
+}
+```
+## TreeMap<K,V>
+* 键值对
+* 键不能重复
+* 每个键只能映射一个值
+
+```bash
+
+```
 ## 异常
 * try：检测异常
 * catch：捕获异常
