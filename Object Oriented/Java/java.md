@@ -203,7 +203,7 @@ class B extends AAS{
 ## 面向对象（接口）------------------
 * interface
 * 从广义上讲对外提供规则的都是接口
-	* 1、interfa 接口名{}
+	* 1、interface 接口名{}
 	* 2、类实现接口用implements表示
 		* class 类名 implements 接口名{}
 	* 3、接口不能实例化，按照多态的方式实例化
@@ -980,18 +980,75 @@ class Singleton2 {
 
 ## 网络编程
 * 用来实现网络互联的不同计算机上运行的程序间可以进行数据交换
+	* 端口：0-65535
+	* mysql：3306
+	* Oracle：1521
 
-* UDP：面向无连接，数据不安全，速度快，不区分客户端和服务端
+* UDP：面向无连接，数据不安全，速度快，不区分客户端和服务端（手机短信）
 * TCP：面向连接（三次握手），数据安全，速度略低，分为客户端和服务端
-* 三次握手：客户端先向服务端发起请求，服务端响应请求，传输数据
+	* 三次握手：客户端先向服务端发起请求，服务端响应请求，传输数据（手机打电话）
 
 ### Socket
 * 网络上具有唯一标识的IP地址和端口号组合在一起才能构成唯一能识别的标识符套接字
 * 通信的两端都有Socket
 * 网络通信其实就是Socket间的通信
-* 数据在两个Socket间通过IO流传输
+* 数据在两个Socket间通过 IO 流传输
+* Socket在应用程序中创建，通过一种绑定机制与驱动程序建立联系，告诉自己所对应的IP和port
+
+## 网络编程(UDP传输)(了解)
+* 1.发送Send
+	* 创建DatagramSocket, 随机端口号
+	* 创建DatagramPacket, 指定数据, 长度, 地址, 端口
+	* 使用DatagramSocket发送DatagramPacket
+	* 关闭DatagramSocket
+* 2.接收Receive
+	* 创建DatagramSocket, 指定端口号
+	* 创建DatagramPacket, 指定数组, 长度
+	* 使用DatagramSocket接收DatagramPacket
+	* 关闭DatagramSocket
+	* 从DatagramPacket中获取数据
+* 3.接收方获取ip和端口号
+	* String ip = packet.getAddress().getHostAddress();
+	* int port = packet.getPort();
+	
+## 网络编程(TCP协议)(掌握)
+* 1.客户端
+	* 创建Socket连接服务端(指定ip地址,端口号)通过ip地址找对应的服务器
+	* 调用Socket的getInputStream()和getOutputStream()方法获取和服务端相连的IO流
+	* 输入流可以读取服务端输出流写出的数据
+	* 输出流可以写出数据到服务端的输入流
+* 2.服务端
+	* 创建ServerSocket(需要指定端口号)
+	* 调用ServerSocket的accept()方法接收一个客户端请求，得到一个Socket
+	* 调用Socket的getInputStream()和getOutputStream()方法获取和客户端相连的IO流
+	* 输入流可以读取客户端输出流写出的数据
+	* 输出流可以写出数据到客户端的输入流
 
 ## 反射
 * JAVA反射机制是在运行状态中，对于任意一个类，都能知道这个类的所有属性和方法。
-* 对于任意一个对象，都能够调用它的任意一个方法和属性
+* 对于任意一个对象，通过字节码文件，都能够调用它的任意一个方法和属性
 * 这种动态获取的信息以及动态调用对象的方法的功能成为java语言的反射机制
+* 要想解剖一个类，必须先要获取该类的字节码文件对象。而解剖使用的就是Class类中的方法，所以先要获取到每一个字节码文件对象的class类型的对象
+
+* 源文件阶段（Person.java) 	Class clazz=class.forName("类名")；
+* 字节码阶段（Person.class）	Class clazz=Person.class;
+* 创建对象阶段（Person p=new Person()）	Class clazz=p.getClass();  //判断是否是同一个字节码文件
+```bash
+public class Demo_Reflect {
+
+	public static void main(String[] args) throws ClassNotFoundException {
+		// TODO Auto-generated method stub
+		//通过三种方式获取字节码对象
+		Class clazz1=Class.forName("com.zhang.bean.Person");
+		System.out.println(clazz1);
+		
+		Class clazz2=com.zhang.bean.Person.class;
+		System.out.println(clazz2);
+		
+		com.zhang.bean.Person p=new Person();
+		Class clazz3=p.getClass();
+		System.out.println(clazz3);
+	}
+
+}
+```

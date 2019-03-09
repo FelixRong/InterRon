@@ -3,10 +3,10 @@
 * SUN公司提供的一种数据库访问规则、规范
 
 * 基本步骤
-	* 1、注册驱动
-	* 2、建立连接
-	* 3、创建Statement
-	* 4、执行sql，得到ResultSet
+	* 1、注册驱动 	Class.forName("com.mysql.jdbc.Driver"); // 反射方式
+	* 2、建立连接		Connection con=DriverManager.getConnection("jdbc:mysql://localhost/Student", "root", "3451");
+	* 3、创建Statement	Statement st=con.createStatement();
+	* 4、执行sql，得到ResultSet	ResultSet rs=st.executeQuery(sql);
 	* 5、遍历结果集
 	* 6、释放资源
 ```bash
@@ -17,7 +17,8 @@
 		ResultSet rs=null;
 		try {
 			//1、注册驱动
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+			//DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+			Class.forName("com.mysql.jdbc.Driver"); // 反射方式
 			//2、建立连接
 			con=DriverManager.getConnection("jdbc:mysql://localhost/Student", "root", "3451");
 			//3、创建Statement,跟数据库打交道，一定需要这个对象
@@ -63,14 +64,4 @@
 	* DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 	* Class.forName("com.mysql.jdbc.Driver");
 
-
-## CRUD
-* insert
-	* INSERT INTO t_stu (name,age) VALUES('zhang',19)
-* delete
-	* DELETE FROM t_stu WHERE id=1
-* query
-	* SELECT * FROM t_stu
-* update
-	* UPDATE t_stu SET age=39 WHERE id=1
 
